@@ -46,7 +46,7 @@ export const products: Product[] = [
   {id:"and",category:"Cocina del Mundo",name:"ANDAREGO",description:"Sandwich",ingredients:"Pan, vegetales y preparación de la casa",price:19000},
   {id:"vr",category:"Cocina del Mundo",name:"VILLA REAL",description:"Fettuccini caseros",ingredients:"Pasta fresca y salsa de la casa",price:23500},
 
-  {id:"alto",category:"Postres de autor",name:"ALTO AMARILLO",description:"Crème brûlée",ingredients:"Crema, vainilla y azúcar",price:9000,image:"/images/postre-01.jpg"},
+  {id:"alto",category:"Postres de autor",name:"ALTO AMARILLO",description:"Crème brûlée",ingredients:"Crema, vainilla y azúcar",price:9000,image:"/images/postre-01.jpeg"},
   {id:"pied",category:"Postres de autor",name:"PIEDRA COLADA",description:"Panqueque de arequipe",ingredients:"Panqueque y arequipe",price:12500},
   {id:"par",category:"Postres de autor",name:"PARAÍSO",description:"Helado casero",ingredients:"Preparación casera",price:9500},
   {id:"cue",category:"Postres de autor",name:"CUEVA NEGRA",description:"Volcán de chocolate",ingredients:"Chocolate y preparación de la casa",price:12000},
