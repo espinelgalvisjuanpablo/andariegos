@@ -1,0 +1,1 @@
+Conserva la carpeta public/images de tu proyecto actual. Este paquete no reemplaza tus imágenes.
