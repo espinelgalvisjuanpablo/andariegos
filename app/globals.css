@@ -63,3 +63,117 @@ a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cur
 }
 /* v0.4 checkout form */
 .checkout-form-card{align-self:start}.checkout-fields{display:grid;gap:13px;margin-top:22px}.checkout-fields label{display:grid;gap:6px;font-size:10px;font-weight:800;letter-spacing:.06em}.checkout-fields input{width:100%;min-height:48px;border:1px solid var(--line);border-radius:18px;background:var(--paper);color:var(--ink);padding:0 14px;outline:none}.checkout-fields input:focus{border-color:var(--terr);box-shadow:0 0 0 3px rgba(184,98,73,.12)}.field-label{font-size:10px;font-weight:800;letter-spacing:.06em;margin-top:4px}.choice-row,.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.choice{min-height:44px;border:1px solid var(--line);border-radius:18px;background:var(--paper);color:var(--ink);font-size:10px;font-weight:800;letter-spacing:.04em;padding:8px}.choice.active{border-color:var(--terr);background:rgba(184,98,73,.10)}.address-fields,.schedule-grid{display:grid;gap:10px}.schedule-grid{grid-template-columns:1fr 1fr}.form-error{margin:16px 0 0;padding:12px 14px;border-radius:14px;background:rgba(184,98,73,.12);color:var(--terr);font-size:11px;line-height:1.5}.checkout-submit{margin-top:20px}.current:after{right:0!important}.nav-shell{padding:6px 10px;border-radius:38px}.site-header{isolation:isolate}.site-header:before{content:"";position:absolute;inset:-5px -8px;z-index:-1;border-radius:42px;background:color-mix(in srgb,var(--paper) 86%,transparent);border:1px solid var(--line);box-shadow:0 10px 35px rgba(37,45,35,.07);backdrop-filter:blur(10px)}.nav-drawer{z-index:3}.nav-controls{z-index:5}.brand-button{z-index:6}
+
+
+/* v0.5 — organic experience polish */
+.site-header{top:12px}
+.nav-shell{padding:5px 8px;background:transparent}
+.site-header:before{inset:2px 0;border-radius:44px;background:color-mix(in srgb,var(--paper) 72%,transparent);box-shadow:0 8px 28px rgba(37,45,35,.06);backdrop-filter:blur(8px)}
+.nav-drawer.open{max-width:min(780px,calc(100vw - 210px))}
+.main-nav{position:relative}
+.main-nav:before,.main-nav:after{content:"";position:absolute;width:7px;height:7px;border:1px solid var(--ochre);border-radius:50%;opacity:.65}
+.main-nav:before{left:2px;top:8px}.main-nav:after{right:2px;bottom:8px}
+.nav-stroke:before,.nav-stroke:after{background:var(--terr);opacity:.5}
+.nav-controls{margin-left:auto}
+.hero-home{padding-top:205px}
+.hero-copy{max-width:940px}
+.ingredient-doodle{position:absolute;display:block;font-size:clamp(18px,2.3vw,34px);filter:saturate(.8);opacity:.75;pointer-events:none;user-select:none}
+.hero-home>.ingredient-doodle{z-index:1}
+.doodle-tomato{left:12%;top:27%;transform:rotate(-10deg)}
+.doodle-carrot{right:13%;top:34%;transform:rotate(13deg)}
+.doodle-leaf{left:18%;bottom:18%;transform:rotate(25deg)}
+.band-doodle{right:7%;bottom:18%;font-size:30px}
+.floating-doodle{position:absolute;right:7%;top:26%;font-size:30px;opacity:.55;transform:rotate(-14deg)}
+.feature-card{border-radius:30px}
+.feature-card.feature-image{min-height:330px;background:var(--cream)}
+.feature-card.feature-image img{object-fit:cover}
+.feature-card .ingredient-doodle{position:static;margin-bottom:20px;font-size:22px}
+.huerta-band{grid-template-columns:.85fr 1.15fr}
+.huerta-photo{min-height:430px;position:relative;overflow:hidden;border-radius:46% 38% 44% 35%;border:1px solid rgba(245,238,223,.35)}
+.huerta-photo img{object-fit:cover}
+.huerta-photo span{position:absolute;right:25px;bottom:22px;font-size:30px;filter:drop-shadow(0 3px 8px #0005)}
+.memory-card{background:var(--cream)}
+.plan-grid article{position:relative;min-height:250px}
+.plan-grid article i{display:block;font-style:normal;font-size:25px;margin-top:18px}
+.plan-grid h3{margin:28px 0 8px}
+.menu-page{position:relative;overflow:hidden;padding-top:190px}
+.menu-intro{position:relative}
+.menu-ingredient-rail{position:absolute;right:2%;top:-20px;width:180px;height:120px;pointer-events:none}
+.carrot-whole{position:absolute;right:8px;top:15px;font-size:48px;transform:rotate(22deg)}
+.carrot-slice{position:absolute;width:19px;height:19px;border:2px solid var(--terr);border-radius:50%;color:transparent;background:var(--ochre);opacity:.7}
+.slice-one{right:90px;top:48px;transform:translateY(calc(var(--carrot-progress,0) * 34px)) rotate(20deg)}
+.slice-two{right:122px;top:69px;transform:translateY(calc(var(--carrot-progress,0) * 60px)) rotate(-12deg)}
+.slice-three{right:151px;top:87px;transform:translateY(calc(var(--carrot-progress,0) * 82px)) rotate(8deg)}
+.category-heading{min-height:58px}
+.category-heading>div:first-child{display:flex;align-items:baseline;gap:12px}
+.category-heading>div:first-child>span{font-size:9px;color:var(--terr);letter-spacing:.15em}
+.category-heading em{margin-left:auto;color:var(--muted);font-size:9px;font-style:normal;letter-spacing:.08em}
+.category-image{width:72px;height:50px;border-radius:50%;overflow:hidden;position:relative;margin-left:auto}
+.category-image img{object-fit:cover}
+.category-heading .category-image+em{margin-left:0}
+.product-list{gap:8px}
+.product-row{min-height:94px;grid-template-columns:1fr auto;padding:16px 18px;border-radius:18px}
+.product-info p{margin:6px 0 3px}
+.quantity-control{justify-content:flex-end}
+.menu-scroll-note{margin:55px auto 0;max-width:430px;display:flex;align-items:center;justify-content:center;gap:10px;color:var(--muted);text-align:center}
+.menu-scroll-note span{font-size:23px;display:inline-block;transform:translateY(calc(var(--carrot-progress,0) * -8px)) rotate(calc(var(--carrot-progress,0) * 18deg));transition:transform .12s linear}
+.menu-scroll-note small{font-size:10px;line-height:1.5}
+.site-footer{padding:46px 8vw 24px;grid-template-columns:1fr auto;gap:20px}
+.footer-mark{font-size:32px;margin-bottom:5px}
+.site-footer p{font-size:11px}
+.footer-links{gap:14px;font-size:9px}
+.footer-bottom{padding-top:14px;font-size:9px}
+.footer-bottom div{gap:12px}
+@media(max-width:900px){
+  .hero-home{padding-top:185px}
+  .huerta-band{grid-template-columns:1fr}
+  .huerta-photo{min-height:380px}
+  .menu-ingredient-rail{right:0}
+}
+@media(max-width:640px){
+  .site-header{top:6px}
+  .nav-shell{padding:3px 5px;min-height:76px}
+  .site-header:before{inset:0;border-radius:38px}
+  .brand-button{width:76px;height:76px}
+  .nav-controls{gap:5px}
+  .nav-drawer{top:78px;left:4px;right:4px}
+  .hero-home{min-height:100svh;padding:148px 28px 78px}
+  .hero-home h1{font-size:21vw}
+  .hero-note{max-width:330px;line-height:1.75}
+  .hero-actions{margin-top:26px}
+  .section{padding:86px 28px}
+  .section-heading{gap:25px;margin-bottom:30px}
+  .section-heading h2,.story-content h2,.story-copy h2,.huerta-copy h2,.memory-section h2,.invitation-section h2{font-size:clamp(38px,11vw,56px)}
+  .featured-grid{gap:12px}
+  .feature-card{min-height:275px;padding:26px}
+  .feature-card.feature-image{min-height:245px}
+  .story-band{padding:78px 28px;position:relative;overflow:hidden}
+  .story-content{padding-right:18px}
+  .band-doodle{right:22px;bottom:25px}
+  .image-story{padding-top:82px;padding-bottom:82px}
+  .image-frame{height:330px}
+  .huerta-band{padding:82px 28px;gap:35px}
+  .huerta-photo{min-height:300px}
+  .memory-card{height:320px}
+  .invitation-section{padding:82px 28px}
+  .menu-page{padding:145px 24px 72px}
+  .menu-ingredient-rail{right:-8px;top:-15px;transform:scale(.8)}
+  .menu-intro>p:not(.eyebrow){max-width:330px;line-height:1.7}
+  .menu-tools{margin:30px 0 48px}
+  .category-heading{gap:8px}
+  .category-heading h2{font-size:28px}
+  .category-image{width:58px;height:42px}
+  .product-row{min-height:0;padding:15px 14px}
+  .product-title-line{gap:8px}
+  .product-info p{font-size:12px;line-height:1.5}
+  .product-info small{font-size:9px}
+  .quantity-control{grid-column:auto;min-width:0}
+  .quantity-control button{width:30px;height:30px}
+  .quantity-control .add-button{padding:0 10px}
+  .site-footer{padding:48px 28px 24px;gap:26px}
+  .footer-bottom{gap:12px}
+  .footer-bottom div{gap:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .carrot-slice,.menu-scroll-note span{transition:none!important}
+}
