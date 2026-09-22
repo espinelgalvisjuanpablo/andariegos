@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import { products,categories,formatCOP } from "@/lib/menu-data";
 import { useCart } from "@/components/cart-provider";
@@ -36,6 +36,6 @@ export default function MenuPage(){
         <div className="quantity-control">{cart[product.id]?<><button aria-label="Disminuir" onClick={()=>remove(product.id)}>−</button><b>{cart[product.id]}</b><button aria-label="Aumentar" onClick={()=>add(product.id)}>+</button></>:<button className="add-button" onClick={()=>add(product.id)}>{en?"ADD":"AGREGAR"}</button>}</div>
       </article>)}</div>
     </section>})}
-    <div className="menu-scroll-note" style={{"--carrot-progress":scrollProgress} as React.CSSProperties}><span>🥕</span><small>{en?"A little kitchen movement as you browse.":"Un pequeño movimiento de cocina mientras recorres la carta."}</small></div>
+    <div className="menu-scroll-note" style={{"--carrot-progress":scrollProgress} as CSSProperties}><span>🥕</span><small>{en?"A little kitchen movement as you browse.":"Un pequeño movimiento de cocina mientras recorres la carta."}</small></div>
   </main>;
 }
