@@ -7,7 +7,7 @@ const CartContext=createContext<CartContextType|null>(null);
 export function CartProvider({children}:{children:ReactNode}) {
   const [cart,setCart]=useState<Cart>({});
   useEffect(()=>{try{const saved=localStorage.getItem("andariegos-cart");if(saved)setCart(JSON.parse(saved))}catch{}},[]);
-  useEffect(()=>{localStorage.setItem("andariegos-cart",JSON.stringify(cart))},[cart]);
+  useEffect(()=>{try{if(Object.keys(cart).length) localStorage.setItem("andariegos-cart",JSON.stringify(cart));else localStorage.removeItem("andariegos-cart")}catch{}},[cart]);
   const items=useMemo(()=>products.filter(p=>cart[p.id]).map(product=>({product,quantity:cart[product.id]})),[cart]);
   const count=items.reduce((s,i)=>s+i.quantity,0);
   const total=items.reduce((s,i)=>s+i.quantity*i.product.price,0);
