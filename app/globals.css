@@ -177,3 +177,64 @@ a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cur
 @media(prefers-reduced-motion:reduce){
   .carrot-slice,.menu-scroll-note span{transition:none!important}
 }
+
+
+/* v0.6 — final visual correction pass */
+.site-header{z-index:1000}
+.site-header:before{background:var(--paper);opacity:.985;backdrop-filter:blur(12px);border-color:var(--line)}
+.nav-shell{min-height:118px}
+.brand-button{width:112px;height:112px}
+.brand-button img{width:108px;height:108px}
+.nav-drawer.open{max-width:min(790px,calc(100vw - 240px))}
+.nav-controls{flex:0 0 auto}
+.nav-controls svg{width:17px;height:17px;display:block}
+.theme-control>span,.cart-control>span{display:grid;place-items:center}
+.cart-control{position:relative}
+.cart-control b{min-width:16px;height:16px;padding:0 4px;display:grid;place-items:center;border-radius:99px;background:var(--terr);color:var(--paper);font-size:8px}
+.ingredient-doodle svg{width:1em;height:1em;display:block;overflow:visible}
+.ingredient-doodle{font-size:34px;color:var(--green);opacity:.72}
+.garden-mark{font-size:0;display:block;width:34px;height:34px;position:relative;color:var(--green)}
+.garden-mark:before,.garden-mark:after{content:"";position:absolute;border:1.5px solid currentColor;border-radius:100% 0 100% 0;width:17px;height:26px;transform:rotate(-35deg)}
+.garden-mark:before{left:4px;top:3px}.garden-mark:after{right:3px;bottom:1px;transform:rotate(145deg)}
+.garden-mark{border-bottom:1.5px solid currentColor;transform:rotate(-25deg)}
+.feature-card.feature-image{background:var(--cream)}
+.feature-card.feature-image img{object-position:center}
+.image-frame img{object-position:center}
+.memory-card img{object-position:center}
+.menu-ingredient-rail{width:190px;height:135px}
+.carrot-whole{font-size:0;display:block;width:62px;height:62px;color:var(--terr)}
+.carrot-whole svg{width:62px;height:62px}
+.carrot-slice{width:22px;height:22px;background:var(--ochre);border:1.5px solid var(--terr);box-shadow:inset 0 0 0 4px rgba(253,251,247,.55)}
+.search-icon,.menu-cart-icon,.carrot-mini{display:grid;place-items:center;color:currentColor}
+.search-icon svg{width:18px;height:18px}.menu-cart-icon svg{width:20px;height:20px}.carrot-mini svg{width:25px;height:25px}
+.category-heading{align-items:center}
+.category-heading>div:first-child{display:flex;align-items:center;gap:0}
+.category-image{width:112px;height:76px;border-radius:24px;margin-left:auto;border:1px solid var(--line);background:var(--cream)}
+.category-image img{object-fit:cover}
+.product-row{grid-template-columns:1fr auto}
+.product-info{padding-left:4px}
+.product-info p{font-size:13px;line-height:1.55;max-width:620px}
+.empty-checkout{max-width:620px;margin:45px auto 0;text-align:center;padding:65px 30px;border:1px solid var(--line);border-radius:36px;background:var(--cream)}
+.empty-symbol{margin:0 auto 20px;color:var(--green)}
+.empty-leaf{font-size:0;width:52px;height:52px;position:relative}
+.empty-leaf:before{content:"";position:absolute;inset:4px 13px 7px 13px;border:1.6px solid currentColor;border-radius:100% 0 100% 0;transform:rotate(-35deg)}
+.empty-leaf:after{content:"";position:absolute;left:25px;top:10px;width:1.5px;height:38px;background:currentColor;transform:rotate(35deg);transform-origin:bottom}
+.empty-checkout h2{font:500 clamp(34px,5vw,54px)/1 Georgia,serif;margin:0 0 12px}
+.empty-checkout p{max-width:420px;margin:0 auto 28px;color:var(--muted);line-height:1.7}
+@media(max-width:900px){
+  .nav-shell{min-height:98px}.brand-button{width:98px;height:98px}.brand-button img{width:94px;height:94px}
+  .nav-drawer.open{max-width:min(690px,calc(100vw - 215px))}
+}
+@media(max-width:640px){
+  .site-header{top:5px}
+  .nav-shell{min-height:84px}
+  .brand-button{width:86px;height:86px}.brand-button img{width:84px;height:84px}
+  .nav-drawer{top:88px}
+  .hero-home{padding-top:165px}
+  .menu-page{padding-left:22px;padding-right:22px}
+  .menu-ingredient-rail{right:-4px;top:-8px;transform:scale(.78)}
+  .category-image{width:94px;height:66px;border-radius:20px}
+  .product-row{grid-template-columns:1fr auto;padding:18px 14px}
+  .product-title-line h3{font-size:12px}.product-info p{font-size:12px;line-height:1.6}
+  .site-footer{padding-left:28px;padding-right:28px}
+}
