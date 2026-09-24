@@ -30,7 +30,7 @@ export default function Home(){
     <section className="section featured-section">
       <div className="section-heading"><div><p className="eyebrow">{en?"NOW AT ANDARIEGOS":"AHORA EN ANDARIEGOS"}</p><h2>{en?"Featured":"Destacados"}</h2></div><p>{en?"A place to highlight what is happening, what is worth trying or simply what the kitchen wants to share today.":"Un espacio para destacar lo que está pasando, lo que vale la pena probar o simplemente lo que la cocina quiere compartir hoy."}</p></div>
       <div className="featured-grid">
-        <article className="feature-card feature-dark"><Doodle>botanical</Doodle><span>01</span><h3>{en?"A kitchen that travels":"Una cocina que viaja"}</h3><p>{en?"Colombia, Argentina, Peru and Simijacá meet at the same table.":"Colombia, Argentina, Perú y Simijacá se encuentran en una misma mesa."}</p><Link href="/menu">{en?"Explore the menu →":"Explorar el menú →"}</Link></article>
+        <article className="feature-card feature-dark"><Doodle>botanical</Doodle><span>COCINA</span><h3>{en?"A kitchen that travels":"Una cocina que viaja"}</h3><p>{en?"Colombia, Argentina, Peru and Simijacá meet at the same table.":"Colombia, Argentina, Perú y Simijacá se encuentran en una misma mesa."}</p><Link href="/menu">{en?"Explore the menu →":"Explorar el menú →"}</Link></article>
         <article className="feature-card feature-image">
           <Image src="/images/postre-01.jpeg" alt="Postre de autor de Andariegos" fill sizes="(max-width: 800px) 100vw, 33vw"/>
         </article>
