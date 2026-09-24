@@ -3,7 +3,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/components/language-provider";
 
-const Doodle=({children,className=""}:{children:string;className?:string})=><span className={`ingredient-doodle ${className}`} aria-hidden="true">{children}</span>;
+const Doodle=({children,className=""}:{children:"tomato"|"carrot"|"leaf"|"botanical"|"route";className?:string})=>{
+  const common={viewBox:"0 0 48 48",fill:"none",stroke:"currentColor",strokeWidth:"1.5",strokeLinecap:"round",strokeLinejoin:"round"};
+  const art=children==="tomato"?<><circle cx="25" cy="26" r="10"/><path d="M25 16c-1-5 2-8 6-10M25 18c-5-3-9-1-12 2M24 17c3-4 7-4 11-2"/></>:
+    children==="carrot"?<><path d="M16 15c4-4 12-3 16 1l-8 25-10-6Z"/><path d="M18 12c-2-5 1-8 4-10M23 13c0-5 4-8 7-8M27 14c3-3 7-3 9-1"/></>:
+    children==="leaf"?<><path d="M37 10C21 10 11 17 12 28c1 7 7 10 13 9 10-1 14-12 12-27Z"/><path d="M13 37c7-9 13-14 21-19"/></>:
+    children==="route"?<><path d="M7 30c7-15 13 9 20-5 4-8 8-9 14-4"/><circle cx="8" cy="30" r="2"/><circle cx="40" cy="21" r="2"/></>:
+    <><path d="M10 34c8-16 17-18 28-20"/><path d="M12 35c7 2 13 0 17-5"/><path d="M31 13c4 0 7 2 8 5"/></>;
+  return <span className={`ingredient-doodle ${className}`} aria-hidden="true"><svg {...common}>{art}</svg></span>;
+};
 
 export default function Home(){
   const {lang}=useLanguage(); const en=lang==="EN";
