@@ -7,12 +7,8 @@ import { useLanguage } from "@/components/language-provider";
 
 const categoryImages:Record<string,string>={
   "Entradas":"/images/plato-premio.jpeg",
-  "Pizzas":"/images/hamburguesa-hongos.jpeg",
   "Hamburguesas":"/images/hamburguesa-hongos.jpeg",
-  "Arepas":"/images/plato-premio.jpeg",
-  "Mazorcada":"/images/huerta.jpeg",
-  "Cocina del Mundo":"/images/plato-premio.jpeg",
-  "Postres":"/images/postre-01.jpeg"
+  "Postres de autor":"/images/postre-01.jpeg"
 };
 
 export default function MenuPage(){
@@ -23,11 +19,11 @@ export default function MenuPage(){
   return <main className="menu-page">
     <section className="menu-intro">
       <div className="menu-ingredient-rail" aria-hidden="true">
-        <span className="carrot-whole">🥕</span><span className="carrot-slice slice-one">◯</span><span className="carrot-slice slice-two">◯</span><span className="carrot-slice slice-three">◯</span>
+        <span className="carrot-whole" aria-hidden="true">carrot</span><span className="carrot-slice slice-one" aria-hidden="true"/><span className="carrot-slice slice-two" aria-hidden="true"/><span className="carrot-slice slice-three" aria-hidden="true"/>
       </div>
       <p className="eyebrow">ANDARIEGOS · COCINA DE MUNDO</p><h1>{en?"Menu":"Menú"}</h1>
       <p>{en?"Search by dish or ingredient. Add what you like and keep moving.":"Busca por plato o ingrediente. Agrega lo que te guste y sigue."}</p>
-      <div className="menu-tools"><label className="search-field"><span>⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder={en?"Search dish or ingredient...":"Buscar plato o ingrediente..."}/></label><a className="cart-summary-link" href="/checkout"><span>🛒</span><b>{count}</b><small>{en?"YOUR CART":"TU CARRITO"}</small></a></div>
+      <div className="menu-tools"><label className="search-field"><span className="search-icon" aria-hidden="true">⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder={en?"Search dish or ingredient...":"Buscar plato o ingrediente..."}/></label><a className="cart-summary-link" href="/checkout"><span className="menu-cart-icon" aria-hidden="true">cart</span><b>{count}</b><small>{en?"YOUR CART":"TU CARRITO"}</small></a></div>
     </section>
     {categories.map(category=>{const items=filtered.filter(p=>p.category===category);if(!items.length)return null;const image=categoryImages[category];return <section className="menu-category" key={category}>
       <div className="category-heading"><div><span>{String(categories.indexOf(category)+1).padStart(2,"0")}</span><h2>{category}</h2></div>{image&&<div className="category-image"><Image src={image} alt="" fill sizes="110px"/></div>}<em>{items.length} {en?"dishes":"platos"}</em></div>
@@ -36,6 +32,6 @@ export default function MenuPage(){
         <div className="quantity-control">{cart[product.id]?<><button aria-label="Disminuir" onClick={()=>remove(product.id)}>−</button><b>{cart[product.id]}</b><button aria-label="Aumentar" onClick={()=>add(product.id)}>+</button></>:<button className="add-button" onClick={()=>add(product.id)}>{en?"ADD":"AGREGAR"}</button>}</div>
       </article>)}</div>
     </section>})}
-    <div className="menu-scroll-note" style={{"--carrot-progress":scrollProgress} as CSSProperties}><span>🥕</span><small>{en?"A little kitchen movement as you browse.":"Un pequeño movimiento de cocina mientras recorres la carta."}</small></div>
+    <div className="menu-scroll-note" style={{"--carrot-progress":scrollProgress} as CSSProperties}><span className="carrot-mini" aria-hidden="true">carrot</span><small>{en?"A little kitchen movement as you browse.":"Un pequeño movimiento de cocina mientras recorres la carta."}</small></div>
   </main>;
 }
