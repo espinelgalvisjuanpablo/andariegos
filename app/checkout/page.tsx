@@ -61,14 +61,14 @@ export default function CheckoutPage(){
       "",
       en?"This is a request; please confirm availability and payment instructions by WhatsApp.":"Esta es una solicitud; por favor confirma disponibilidad e instrucciones de pago por WhatsApp."
     ];
-    window.open(`https://wa.me/573242870766?text=${encodeURIComponent(lines.join("\n"))}`,"_blank","noopener,noreferrer");
+    window.open(`https://wa.me/573242870766?text=${encodeURIComponent(lines.join("\n"))}`,"_blank","noopener,noreferrer");\n    clear();
   }
 
   return <main className="checkout-page"><section className="checkout-shell">
     <div className="checkout-heading"><p className="eyebrow">{en?"YOUR ORDER":"TU PEDIDO"}</p><h1>{en?"Ready when you are.":"Listo cuando tú estés."}</h1><p>{en?"Complete the request first; WhatsApp is the final handoff to Andariegos.":"Primero completa la solicitud; WhatsApp es el último paso para enviársela a Andariegos."}</p></div>
 
     {!count
-      ? <div className="empty-checkout"><div className="empty-symbol">🍃</div><h2>{en?"Your cart is empty.":"Tu carrito está vacío."}</h2><p>{en?"Open the menu and add something good before checking out.":"Abre el menú y agrega algo rico antes de continuar."}</p><Link className="button button-primary" href="/menu">{en?"GO TO MENU":"IR AL MENÚ"}</Link></div>
+      ? <div className="empty-checkout"><div className="empty-symbol empty-leaf" aria-hidden="true">leaf</div><h2>{en?"Your cart is empty.":"Tu carrito está vacío."}</h2><p>{en?"Open the menu and add something good before checking out.":"Abre el menú y agrega algo rico antes de continuar."}</p><Link className="button button-primary" href="/menu">{en?"GO TO MENU":"IR AL MENÚ"}</Link></div>
       : <div className="checkout-grid">
         <div className="order-card">
           <div className="order-card-head"><h2>{en?"Your selection":"Tu selección"}</h2><button type="button" onClick={clear}>{en?"Clear":"Vaciar"}</button></div>
