@@ -18,7 +18,7 @@ export const products: Product[] = [
   {id:"sim",category:"Entradas",name:"SIMIJACA",description:"Papa chorreada de la casa, una entrada cálida y tradicional para abrir la mesa.",ingredients:"Papa y preparación de la casa",price:8500},
   {id:"taq",category:"Entradas",name:"TÁQUIRA",description:"Tortilla de queso preparada para compartir un bocado sencillo y reconfortante.",ingredients:"Queso y tortilla",price:14500},
   {id:"sal",category:"Entradas",name:"SALITRE",description:"Deditos de queso con masa artesanal, pensados para picar y compartir.",ingredients:"Queso y masa artesanal",price:13500},
-  {id:"rafa",category:"Entradas",name:"SAN RAFAEL",description:"Queso asado",ingredients:"Queso",price:11500},
+  {id:"rafa",category:"Entradas",name:"SAN RAFAEL",description:"Queso asado, servido como entrada sencilla para disfrutar el producto protagonista.",ingredients:"Queso",price:11500},
   {id:"pinos",category:"Entradas",name:"LOS PINOS",description:"Pastel de yuca de la casa, pequeño y perfecto para empezar.",ingredients:"Yuca y relleno de la casa",price:3500},
   {id:"lope",category:"Entradas",name:"DON LOPE",description:"Arepitas de quinoa y maíz, una entrada de formato pequeño para compartir.",ingredients:"Quinoa y maíz",price:10500},
   {id:"churnica",category:"Entradas",name:"CHURNICA",description:"Tabla de patacón rayado con acompañamientos de la casa; disponible personal o para compartir.",ingredients:"Patacón y acompañamientos de la casa",price:17000},
