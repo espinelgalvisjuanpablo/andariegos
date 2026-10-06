@@ -811,3 +811,489 @@ a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cur
     bottom: -190px;
   }
 }
+/* =========================================================
+   ADMIN EXPERIENCE
+   ========================================================= */
+
+.admin-page-content {
+  min-height: 100vh;
+  padding-top: 0;
+}
+
+.admin-nav {
+  position: relative;
+  z-index: 100;
+  width: 100%;
+  padding: 22px 30px 0;
+}
+
+.admin-nav-inner {
+  width: min(1380px, 100%);
+  min-height: 76px;
+  margin: 0 auto;
+  padding: 0 22px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 30px;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.admin-nav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  color: var(--ink);
+  text-decoration: none;
+  min-width: max-content;
+}
+
+.admin-nav-brand > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.admin-nav-brand strong {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.admin-nav-brand small {
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.admin-nav-mark {
+  width: 30px;
+  height: 30px;
+  display: block;
+
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+
+  position: relative;
+}
+
+.admin-nav-mark::before,
+.admin-nav-mark::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 12px;
+  height: 1px;
+
+  background: var(--ink);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.admin-nav-mark::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.admin-nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(15px, 2vw, 30px);
+}
+
+.admin-nav-links a {
+  position: relative;
+
+  color: var(--muted);
+  text-decoration: none;
+
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.admin-nav-links a:hover {
+  color: var(--ink);
+}
+
+.admin-nav-links a.current {
+  color: var(--ink);
+}
+
+.admin-nav-links a.current::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -12px;
+
+  height: 1px;
+  background: var(--terr);
+}
+
+.admin-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: max-content;
+}
+
+.admin-nav-public,
+.admin-nav-logout {
+  border: 0;
+  background: transparent;
+
+  color: var(--muted);
+  text-decoration: none;
+
+  font: inherit;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+
+  cursor: pointer;
+
+  transition: color 180ms ease;
+}
+
+.admin-nav-public:hover,
+.admin-nav-logout:hover {
+  color: var(--ink);
+}
+
+.admin-nav-logout {
+  padding-left: 15px;
+  border-left: 1px solid var(--line);
+}
+
+@media (max-width: 1050px) {
+  .admin-nav-inner {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+  }
+
+  .admin-nav-links {
+    grid-column: 1 / -1;
+    grid-row: 2;
+
+    justify-content: flex-start;
+
+    overflow-x: auto;
+    padding: 0 0 18px;
+
+    scrollbar-width: none;
+  }
+
+  .admin-nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .admin-nav-links a.current::after {
+    bottom: -9px;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-nav {
+    padding: 15px 20px 0;
+  }
+
+  .admin-nav-inner {
+    min-height: 65px;
+    padding: 0 4px;
+    gap: 15px;
+  }
+
+  .admin-nav-brand strong {
+    font-size: 10px;
+  }
+
+  .admin-nav-brand small {
+    font-size: 7px;
+  }
+
+  .admin-nav-mark {
+    width: 26px;
+    height: 26px;
+  }
+
+  .admin-nav-public {
+    display: none;
+  }
+
+  .admin-nav-logout {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .admin-nav-links {
+    gap: 20px;
+  }
+
+  .admin-nav-links a {
+    font-size: 7px;
+    white-space: nowrap;
+  }
+}
+/* =========================================================
+   ADMIN EXPERIENCE
+   ========================================================= */
+
+.admin-page-content {
+  min-height: 100vh;
+  background: var(--paper);
+}
+
+.admin-nav {
+  position: relative;
+  z-index: 100;
+  width: 100%;
+  padding: 14px 18px 0;
+}
+
+.admin-nav-inner {
+  width: min(1380px, 100%);
+  min-height: 72px;
+  margin: 0 auto;
+  padding: 0 18px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 28px;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.admin-nav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+
+  color: var(--ink);
+  text-decoration: none;
+  min-width: max-content;
+}
+
+.admin-nav-logo {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  display: block;
+}
+
+.admin-nav-brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.admin-nav-brand-copy strong {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.admin-nav-brand-copy small {
+  color: var(--muted);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.admin-nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(18px, 2.2vw, 32px);
+  min-width: 0;
+}
+
+.admin-nav-links a {
+  position: relative;
+
+  color: var(--muted);
+  text-decoration: none;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  white-space: nowrap;
+
+  transition: color 180ms ease;
+}
+
+.admin-nav-links a:hover {
+  color: var(--ink);
+}
+
+.admin-nav-links a.current {
+  color: var(--ink);
+}
+
+.admin-nav-links a.current::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -12px;
+
+  height: 1px;
+  background: var(--terr);
+}
+
+.admin-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: max-content;
+}
+
+.admin-nav-public,
+.admin-nav-logout {
+  border: 0;
+  background: transparent;
+
+  color: var(--muted);
+  text-decoration: none;
+
+  font: inherit;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+
+  cursor: pointer;
+
+  transition: color 180ms ease;
+}
+
+.admin-nav-public:hover,
+.admin-nav-logout:hover {
+  color: var(--ink);
+}
+
+.admin-nav-logout {
+  padding-left: 16px;
+  border-left: 1px solid var(--line);
+}
+
+/* =========================================================
+   ADMIN — MOBILE / TABLET
+   ========================================================= */
+
+@media (max-width: 1050px) {
+  .admin-nav-inner {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .admin-nav-links {
+    grid-column: 1 / -1;
+    grid-row: 2;
+
+    justify-content: flex-start;
+
+    width: 100%;
+    overflow-x: auto;
+
+    padding: 0 2px 15px;
+
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .admin-nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .admin-nav-links a {
+    flex: 0 0 auto;
+  }
+
+  .admin-nav-links a.current::after {
+    bottom: -8px;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-nav {
+    padding: 10px 14px 0;
+  }
+
+  .admin-nav-inner {
+    min-height: 62px;
+    padding: 0 2px;
+    gap: 10px;
+  }
+
+  .admin-nav-logo {
+    width: 39px;
+    height: 39px;
+  }
+
+  .admin-nav-brand {
+    gap: 8px;
+  }
+
+  .admin-nav-brand-copy strong {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+  }
+
+  .admin-nav-brand-copy small {
+    font-size: 6px;
+    letter-spacing: 0.15em;
+  }
+
+  .admin-nav-actions {
+    gap: 0;
+  }
+
+  .admin-nav-public {
+    display: none;
+  }
+
+  .admin-nav-logout {
+    padding-left: 0;
+    border-left: 0;
+
+    font-size: 8px;
+  }
+
+  .admin-nav-links {
+    gap: 22px;
+    padding-bottom: 13px;
+  }
+
+  .admin-nav-links a {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
+}
+
+@media (max-width: 380px) {
+  .admin-nav-brand-copy {
+    display: none;
+  }
+
+  .admin-nav-logo {
+    width: 42px;
+    height: 42px;
+  }
+
+  .admin-nav-links {
+    gap: 20px;
+  }
+}
