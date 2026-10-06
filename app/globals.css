@@ -177,3 +177,637 @@ a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cur
 @media(prefers-reduced-motion:reduce){
   .carrot-slice,.menu-scroll-note span{transition:none!important}
 }
+/* =========================================================
+   CHECKOUT SUCCESS — EDITORIAL
+   ========================================================= */
+
+.checkout-success-page {
+  min-height: 72vh;
+  padding-top: 165px;
+  padding-bottom: 90px;
+  display: flex;
+  align-items: center;
+}
+
+.checkout-success {
+  width: 100%;
+}
+
+.checkout-success-inner {
+  width: min(760px, 100%);
+  margin: 0 auto;
+  padding: 70px 30px;
+  text-align: center;
+}
+
+.checkout-success-label {
+  margin: 0 0 34px;
+  color: var(--green);
+  font-size: clamp(1.45rem, 3vw, 2.35rem);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.checkout-order-number {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto 34px;
+}
+
+.checkout-order-title {
+  margin-bottom: 9px;
+  color: var(--muted);
+  font-size: .72rem;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+}
+
+.checkout-order-number strong {
+  display: block;
+  color: var(--ink);
+  font-family: Georgia, serif;
+  font-size: clamp(3rem, 7vw, 5.4rem);
+  line-height: .95;
+  font-weight: 500;
+  letter-spacing: -.035em;
+  white-space: nowrap;
+}
+
+.checkout-success-text {
+  width: min(540px, 100%);
+  margin: 0 auto 36px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.checkout-home-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 24px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background .2s ease,
+    color .2s ease,
+    border-color .2s ease,
+    transform .2s ease;
+}
+
+.checkout-home-button:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--paper);
+  transform: translateY(-1px);
+}
+
+.checkout-home-button:focus-visible {
+  outline: 2px solid var(--terr);
+  outline-offset: 4px;
+}
+
+.checkout-grand-total {
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+  padding-top: 18px;
+}
+
+.selected-payment-description {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+  .checkout-success-page {
+    min-height: 68vh;
+    padding-top: 125px;
+    padding-bottom: 65px;
+  }
+
+  .checkout-success-inner {
+    padding: 55px 20px;
+  }
+
+  .checkout-success-label {
+    margin-bottom: 30px;
+    font-size: 1.25rem;
+    letter-spacing: .1em;
+  }
+
+  .checkout-order-number {
+    margin-bottom: 30px;
+  }
+
+  .checkout-order-title {
+    margin-bottom: 8px;
+    font-size: .64rem;
+    letter-spacing: .2em;
+  }
+
+  .checkout-order-number strong {
+    font-size: clamp(2.55rem, 13vw, 3.8rem);
+    letter-spacing: -.025em;
+  }
+
+  .checkout-success-text {
+    margin-bottom: 30px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .checkout-home-button {
+    min-height: 42px;
+    padding: 0 20px;
+    font-size: 8px;
+  }
+}
+/* =========================================================
+   ANDARIEGOS — CHECKOUT SUCCESS
+   Editorial confirmation / v1
+   ========================================================= */
+
+.checkout-success-page {
+  min-height: 76vh;
+  padding-top: 170px;
+  padding-bottom: 90px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.checkout-success {
+  width: min(1040px, 100%);
+  min-height: 560px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(
+      circle at 50% 38%,
+      rgba(198,154,67,.09),
+      transparent 28%
+    ),
+    var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 44px;
+  overflow: hidden;
+}
+
+/* Decorative organic geometry */
+
+.checkout-success:before,
+.checkout-success:after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid var(--green);
+  opacity: .15;
+  border-radius: 50%;
+}
+
+.checkout-success:before {
+  width: 430px;
+  height: 430px;
+  left: -260px;
+  top: -160px;
+  transform: rotate(-17deg);
+}
+
+.checkout-success:after {
+  width: 520px;
+  height: 520px;
+  right: -320px;
+  bottom: -260px;
+  border-color: var(--terr);
+  transform: rotate(12deg);
+}
+
+.checkout-success-inner {
+  width: min(660px, calc(100% - 50px));
+  padding: 65px 25px;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+/* Small brand signature */
+
+.checkout-success-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  color: var(--green);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .28em;
+}
+
+.checkout-success-brand-line {
+  width: 38px;
+  height: 1px;
+  background: var(--ochre);
+  opacity: .7;
+}
+
+/* Tiny decorative mark */
+
+.checkout-success-mark {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 28px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.checkout-success-mark:before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--green);
+  border-radius: 50%;
+  opacity: .45;
+}
+
+.checkout-success-mark:after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  top: 9px;
+  right: 8px;
+  border-radius: 50%;
+  background: var(--ochre);
+}
+
+.checkout-success-mark span {
+  position: absolute;
+  width: 1px;
+  height: 14px;
+  background: var(--green);
+  opacity: .65;
+  transform-origin: bottom center;
+}
+
+.checkout-success-mark span:nth-child(1) {
+  transform: rotate(-34deg) translateY(-3px);
+}
+
+.checkout-success-mark span:nth-child(2) {
+  height: 18px;
+  transform: rotate(0deg) translateY(-4px);
+}
+
+.checkout-success-mark span:nth-child(3) {
+  transform: rotate(34deg) translateY(-3px);
+}
+
+/* Main title */
+
+.checkout-success-label {
+  margin: 0;
+  color: var(--ink);
+  font-family: Georgia, serif;
+  font-size: clamp(2rem, 4.5vw, 3.65rem);
+  line-height: .95;
+  font-weight: 500;
+  letter-spacing: -.045em;
+}
+
+.checkout-success-intro {
+  margin: 16px auto 30px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Order number */
+
+.checkout-order-number {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.checkout-order-title {
+  margin-bottom: 8px;
+  color: var(--terr);
+  font-size: 8px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+}
+
+.checkout-order-number strong {
+  display: block;
+  color: var(--ink);
+  font-family: Georgia, serif;
+  font-size: clamp(3.3rem, 8vw, 5.8rem);
+  line-height: .9;
+  font-weight: 500;
+  letter-spacing: -.055em;
+  white-space: nowrap;
+}
+
+/* Decorative divider */
+
+.checkout-success-rule {
+  width: min(340px, 75%);
+  margin: 29px auto 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.checkout-success-rule span {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.checkout-success-rule i {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--ochre);
+}
+
+/* Message */
+
+.checkout-success-text {
+  width: min(500px, 100%);
+  margin: 0 auto 30px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+/* Home link */
+
+.checkout-home-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  min-height: 43px;
+  padding: 0 20px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .17em;
+  text-decoration: none;
+  transition:
+    background .2s ease,
+    border-color .2s ease,
+    color .2s ease,
+    transform .2s ease;
+}
+
+.checkout-home-button b {
+  color: var(--terr);
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 400;
+  transition: transform .2s ease;
+}
+
+.checkout-home-button:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--paper);
+  transform: translateY(-2px);
+}
+
+.checkout-home-button:hover b {
+  color: var(--paper);
+  transform: translate(2px, -2px);
+}
+
+.checkout-home-button:focus-visible {
+  outline: 2px solid var(--terr);
+  outline-offset: 4px;
+}
+
+/* Footer signature */
+
+.checkout-success-footer {
+  margin: 34px 0 0;
+  color: var(--muted);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .24em;
+  opacity: .7;
+}
+
+/* Decorative corner elements */
+
+.checkout-success-decoration {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.checkout-success-decoration-left {
+  width: 100px;
+  height: 100px;
+  left: 54px;
+  bottom: 48px;
+  border-left: 1px solid var(--green);
+  border-bottom: 1px solid var(--green);
+  border-radius: 0 0 0 60px;
+  opacity: .2;
+}
+
+.checkout-success-decoration-right {
+  width: 80px;
+  height: 80px;
+  right: 54px;
+  top: 48px;
+  border-right: 1px solid var(--terr);
+  border-top: 1px solid var(--terr);
+  border-radius: 0 60px 0 0;
+  opacity: .2;
+}
+
+/* =========================================================
+   CHECKOUT TOTAL
+   ========================================================= */
+
+.checkout-grand-total {
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+  padding-top: 18px;
+}
+
+/* Payment description */
+
+.selected-payment-description {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   SUCCESS RESPONSIVE
+   ========================================================= */
+
+@media(max-width:900px) {
+  .checkout-success-page {
+    padding-top: 145px;
+  }
+
+  .checkout-success {
+    min-height: 530px;
+  }
+
+  .checkout-success-decoration-left {
+    left: 30px;
+  }
+
+  .checkout-success-decoration-right {
+    right: 30px;
+  }
+}
+
+@media(max-width:640px) {
+  .checkout-success-page {
+    min-height: 76vh;
+    padding: 125px 15px 65px;
+  }
+
+  .checkout-success {
+    min-height: 570px;
+    border-radius: 32px;
+  }
+
+  .checkout-success-inner {
+    width: calc(100% - 28px);
+    padding: 52px 12px;
+  }
+
+  .checkout-success-brand {
+    gap: 9px;
+    margin-bottom: 27px;
+    font-size: 7px;
+    letter-spacing: .22em;
+  }
+
+  .checkout-success-brand-line {
+    width: 24px;
+  }
+
+  .checkout-success-mark {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 25px;
+  }
+
+  .checkout-success-label {
+    font-size: clamp(1.8rem, 9vw, 2.6rem);
+  }
+
+  .checkout-success-intro {
+    max-width: 270px;
+    margin-top: 13px;
+    margin-bottom: 27px;
+    font-size: 11px;
+  }
+
+  .checkout-order-title {
+    font-size: 7px;
+    letter-spacing: .22em;
+  }
+
+  .checkout-order-number strong {
+    font-size: clamp(2.9rem, 15vw, 4.2rem);
+    letter-spacing: -.045em;
+  }
+
+  .checkout-success-rule {
+    width: 72%;
+    margin-top: 26px;
+    margin-bottom: 22px;
+  }
+
+  .checkout-success-text {
+    max-width: 280px;
+    margin-bottom: 27px;
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  .checkout-home-button {
+    min-height: 41px;
+    padding: 0 18px;
+    font-size: 7px;
+    letter-spacing: .15em;
+  }
+
+  .checkout-success-footer {
+    margin-top: 30px;
+    font-size: 6px;
+    letter-spacing: .18em;
+  }
+
+  .checkout-success-decoration-left {
+    width: 65px;
+    height: 65px;
+    left: 18px;
+    bottom: 22px;
+  }
+
+  .checkout-success-decoration-right {
+    width: 55px;
+    height: 55px;
+    right: 18px;
+    top: 22px;
+  }
+
+  .checkout-success:before {
+    width: 280px;
+    height: 280px;
+    left: -200px;
+    top: -130px;
+  }
+
+  .checkout-success:after {
+    width: 330px;
+    height: 330px;
+    right: -230px;
+    bottom: -190px;
+  }
+}

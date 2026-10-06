@@ -69,9 +69,6 @@ export default function CheckoutPage() {
   const [submitted, setSubmitted] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
 
-  /*
-   * Carga los métodos de pago reales desde Supabase.
-   */
   useEffect(() => {
     async function loadPaymentMethods() {
       try {
@@ -101,11 +98,6 @@ export default function CheckoutPage() {
         const methods = data ?? [];
 
         setPaymentMethods(methods);
-
-        /*
-         * No seleccionamos automáticamente un método.
-         * El usuario debe elegirlo.
-         */
         setPayment("");
       } catch (paymentError) {
         console.error(
@@ -148,9 +140,6 @@ export default function CheckoutPage() {
     [items, en]
   );
 
-  /*
-   * Construye el mensaje definitivo que se enviará a WhatsApp.
-   */
   function buildWhatsAppMessage(
     definitiveOrderNumber: string
   ) {
@@ -236,16 +225,6 @@ export default function CheckoutPage() {
     return lines.join("\n");
   }
 
-  /*
-   * Envía el pedido:
-   *
-   * 1. Valida los datos.
-   * 2. Guarda orders.
-   * 3. Guarda order_items.
-   * 4. Obtiene AND-XXXX.
-   * 5. Abre WhatsApp una sola vez.
-   * 6. Muestra la pantalla final.
-   */
   async function handleSendOrder() {
     if (sending) return;
 
@@ -361,8 +340,7 @@ export default function CheckoutPage() {
               payment === "cash" &&
               cashAmount.trim()
                 ? Number(
-                    cashAmount
-                      .replace(/\D/g, "")
+                    cashAmount.replace(/\D/g, "")
                   )
                 : null,
 
@@ -413,9 +391,6 @@ export default function CheckoutPage() {
         );
       }
 
-      /*
-       * El número definitivo viene de Supabase.
-       */
       const definitiveOrderNumber =
         `AND-${String(
           data.order_number
@@ -425,10 +400,6 @@ export default function CheckoutPage() {
         definitiveOrderNumber
       );
 
-      /*
-       * Construimos el WhatsApp usando
-       * exactamente el número definitivo.
-       */
       const whatsappMessage =
         buildWhatsAppMessage(
           definitiveOrderNumber
@@ -439,33 +410,14 @@ export default function CheckoutPage() {
           whatsappMessage
         )}`;
 
-      /*
-       * IMPORTANTE:
-       *
-       * WhatsApp se abre UNA SOLA VEZ.
-       *
-       * No usamos window.location.href porque
-       * eso abandona la página de Andariegos.
-       *
-       * Después de abrir WhatsApp, el usuario
-       * conserva la pantalla de confirmación.
-       */
       window.open(
         whatsappUrl,
         "_blank",
         "noopener,noreferrer"
       );
 
-      /*
-       * El pedido ya está registrado.
-       * No volvemos a guardar nada.
-       */
       setSubmitted(true);
 
-      /*
-       * Limpiamos el carrito después de registrar
-       * correctamente el pedido.
-       */
       clear();
     } catch (submitError) {
       console.error(
@@ -487,112 +439,89 @@ export default function CheckoutPage() {
 
   /*
    * ==========================================================
-   * PANTALLA FINAL
+   * CONFIRMACIÓN FINAL
    * ==========================================================
-   *
-   * NO hay botón "VOLVER A WHATSAPP".
-   *
-   * WhatsApp ya fue abierto automáticamente
-   * cuando se registró el pedido.
    */
+
   if (submitted) {
     return (
-      <main className="checkout-page">
+      <main className="checkout-page checkout-success-page">
         <section className="checkout-success">
+          <div className="checkout-success-decoration checkout-success-decoration-left" />
+          <div className="checkout-success-decoration checkout-success-decoration-right" />
+
           <div className="checkout-success-inner">
-            <p
-              className="checkout-success-label"
-              style={{
-                fontSize: "clamp(2.5rem, 7vw, 6rem)",
-                lineHeight: 0.95,
-                fontWeight: 800,
-                letterSpacing: "-0.04em",
-                marginBottom: "2.5rem",
-              }}
-            >
+
+            <div className="checkout-success-brand">
+              <span className="checkout-success-brand-line" />
+              <span>ANDARIEGOS</span>
+              <span className="checkout-success-brand-line" />
+            </div>
+
+            <div className="checkout-success-mark">
+              <span />
+              <span />
+              <span />
+            </div>
+
+            <p className="checkout-success-label">
               {en
                 ? "ORDER SENT"
                 : "SOLICITUD ENVIADA"}
             </p>
 
-            <div
-              className="checkout-order-number"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "0.5rem",
-                margin: "0 auto 2.5rem",
-                width: "100%",
-              }}
-            >
-              <span
-                className="checkout-order-title"
-                style={{
-                  fontSize:
-                    "clamp(1.8rem, 4vw, 3.5rem)",
-                  lineHeight: 1,
-                  fontWeight: 700,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                }}
-              >
+            <p className="checkout-success-intro">
+              {en
+                ? "Your request has reached Andariegos."
+                : "Tu solicitud ya llegó a Andariegos."}
+            </p>
+
+            <div className="checkout-order-number">
+              <span className="checkout-order-title">
                 {en ? "ORDER" : "PEDIDO"}
               </span>
 
-              <strong
-                style={{
-                  display: "block",
-                  fontSize:
-                    "clamp(4rem, 13vw, 10rem)",
-                  lineHeight: 0.9,
-                  fontWeight: 900,
-                  letterSpacing: "-0.06em",
-                  whiteSpace: "nowrap",
-                }}
-              >
+              <strong>
                 {orderNumber}
               </strong>
             </div>
 
-            <p
-              className="checkout-success-text"
-              style={{
-                maxWidth: "650px",
-                margin: "0 auto 2.5rem",
-                fontSize:
-                  "clamp(1rem, 2vw, 1.35rem)",
-                lineHeight: 1.6,
-              }}
-            >
+            <div className="checkout-success-rule">
+              <span />
+              <i />
+              <span />
+            </div>
+
+            <p className="checkout-success-text">
               {en
-                ? "Your order has been registered. We will contact you via WhatsApp to confirm availability and payment instructions."
-                : "Tu pedido fue registrado. Te contactaremos por WhatsApp para confirmar disponibilidad e instrucciones de pago."}
+                ? "We will contact you via WhatsApp to confirm availability and payment instructions."
+                : "Te contactaremos por WhatsApp para confirmar disponibilidad e instrucciones de pago."}
             </p>
 
-            <button
-              type="button"
+            <Link
+              href="/"
               className="checkout-home-button"
-              onClick={() => {
-                window.location.href = "/";
-              }}
             >
+              <span>
+                {en
+                  ? "BACK TO HOME"
+                  : "VOLVER AL INICIO"}
+              </span>
+              <b>↗</b>
+            </Link>
+
+            <p className="checkout-success-footer">
               {en
-                ? "BACK TO HOME"
-                : "VOLVER AL INICIO"}
-            </button>
+                ? "COCINA DE MUNDO · SIMIJACÁ"
+                : "COCINA DE MUNDO · SIMIJACÁ"}
+            </p>
+
           </div>
         </section>
       </main>
     );
   }
 
-  /*
-   * ==========================================================
-   * CARRITO VACÍO
-   * ==========================================================
-   */
   if (!count) {
     return (
       <main className="checkout-page">
@@ -628,14 +557,10 @@ export default function CheckoutPage() {
     );
   }
 
-  /*
-   * ==========================================================
-   * CHECKOUT PRINCIPAL
-   * ==========================================================
-   */
   return (
     <main className="checkout-page">
       <section className="checkout-shell">
+
         <div className="checkout-heading">
           <p className="eyebrow">
             {en
@@ -657,10 +582,9 @@ export default function CheckoutPage() {
         </div>
 
         <div className="checkout-grid">
-          {/* ==================================================
-              RESUMEN DEL PEDIDO
-              ================================================== */}
+
           <div className="order-card">
+
             <div className="order-card-head">
               <h2>
                 {en
@@ -687,6 +611,7 @@ export default function CheckoutPage() {
                   className="order-line"
                   key={product.id}
                 >
+
                   <div>
                     <b>
                       {en
@@ -702,6 +627,7 @@ export default function CheckoutPage() {
                   </div>
 
                   <div className="order-qty">
+
                     <button
                       type="button"
                       onClick={() =>
@@ -731,6 +657,7 @@ export default function CheckoutPage() {
                     >
                       +
                     </button>
+
                   </div>
 
                   <strong>
@@ -739,15 +666,14 @@ export default function CheckoutPage() {
                         quantity
                     )}
                   </strong>
+
                 </div>
               )
             )}
 
             <div className="order-total">
               <span>
-                {en
-                  ? "Subtotal"
-                  : "Subtotal"}
+                Subtotal
               </span>
 
               <b>
@@ -769,19 +695,9 @@ export default function CheckoutPage() {
               </b>
             </div>
 
-            <div
-              className="order-total"
-              style={{
-                borderTop:
-                  "1px solid currentColor",
-                marginTop: "0.75rem",
-                paddingTop: "0.75rem",
-              }}
-            >
+            <div className="order-total checkout-grand-total">
               <span>
-                {en
-                  ? "TOTAL"
-                  : "TOTAL"}
+                TOTAL
               </span>
 
               <b>
@@ -790,12 +706,11 @@ export default function CheckoutPage() {
                 )}
               </b>
             </div>
+
           </div>
 
-          {/* ==================================================
-              DATOS DE LA SOLICITUD
-              ================================================== */}
           <aside className="request-card checkout-form-card">
+
             <p className="eyebrow">
               {en
                 ? "REQUEST DETAILS"
@@ -815,7 +730,6 @@ export default function CheckoutPage() {
             </p>
 
             <div className="checkout-fields">
-              {/* CONTACTO */}
 
               <label>
                 {en
@@ -856,8 +770,6 @@ export default function CheckoutPage() {
                 />
               </label>
 
-              {/* ENTREGA */}
-
               <div className="field-label">
                 {en
                   ? "How do you receive it? *"
@@ -865,6 +777,7 @@ export default function CheckoutPage() {
               </div>
 
               <div className="choice-row">
+
                 <button
                   type="button"
                   className={
@@ -902,11 +815,13 @@ export default function CheckoutPage() {
                     ? "Pickup"
                     : "Recoger"}
                 </button>
+
               </div>
 
               {fulfillment ===
                 "delivery" && (
                 <div className="address-fields">
+
                   <label>
                     {en
                       ? "Address *"
@@ -969,10 +884,9 @@ export default function CheckoutPage() {
                       }
                     />
                   </label>
+
                 </div>
               )}
-
-              {/* PAGO */}
 
               <div className="field-label">
                 {en
@@ -988,6 +902,7 @@ export default function CheckoutPage() {
                 </p>
               ) : (
                 <div className="choice-grid">
+
                   {paymentMethods.map(
                     (method) => (
                       <button
@@ -1011,19 +926,12 @@ export default function CheckoutPage() {
                       </button>
                     )
                   )}
+
                 </div>
               )}
 
               {selectedPaymentMethod && (
-                <small
-                  style={{
-                    display:
-                      "block",
-                    marginTop:
-                      "0.5rem",
-                    opacity: 0.7,
-                  }}
-                >
+                <small className="selected-payment-description">
                   {en
                     ? selectedPaymentMethod.description_en
                     : selectedPaymentMethod.description_es}
@@ -1056,8 +964,6 @@ export default function CheckoutPage() {
                 </label>
               )}
 
-              {/* PROGRAMACIÓN */}
-
               <div className="field-label">
                 {en
                   ? "When? *"
@@ -1065,6 +971,7 @@ export default function CheckoutPage() {
               </div>
 
               <div className="choice-row">
+
                 <button
                   type="button"
                   className={
@@ -1102,11 +1009,13 @@ export default function CheckoutPage() {
                     ? "Schedule"
                     : "Programar"}
                 </button>
+
               </div>
 
               {schedule ===
                 "scheduled" && (
                 <div className="schedule-grid">
+
                   <label>
                     {en
                       ? "Date *"
@@ -1138,11 +1047,11 @@ export default function CheckoutPage() {
                       }
                     />
                   </label>
+
                 </div>
               )}
-            </div>
 
-            {/* ERROR */}
+            </div>
 
             {error && (
               <p
@@ -1152,8 +1061,6 @@ export default function CheckoutPage() {
                 {error}
               </p>
             )}
-
-            {/* INFORMACIÓN DE DOMICILIO */}
 
             <div className="checkout-note">
               <b>
@@ -1172,8 +1079,6 @@ export default function CheckoutPage() {
                     )} · radio de ${DELIVERY_RADIUS_KM} km.`}
               </span>
             </div>
-
-            {/* INFORMACIÓN DE PAGOS */}
 
             <div className="checkout-note">
               <b>
@@ -1195,8 +1100,6 @@ export default function CheckoutPage() {
                   : "Nequi · Daviplata · Bre-B / Llave · Efectivo"}
               </span>
             </div>
-
-            {/* BOTÓN FINAL */}
 
             <button
               type="button"
@@ -1221,9 +1124,11 @@ export default function CheckoutPage() {
             <p className="microcopy">
               {en
                 ? "This sends a request; Andariegos confirms availability and payment instructions in WhatsApp."
-                : "Esto envía una solicitud; Andariegos confirma disponibilidad e instrucciones de pago por WhatsApp."}
+                : "Esto envía una solicitud; Andariegos confirma disponibilidad e instrucciones de pago en WhatsApp."}
             </p>
+
           </aside>
+
         </div>
       </section>
     </main>
