@@ -12,19 +12,33 @@ import { AdminNav } from "./admin-nav";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+
   const isAdmin = pathname.startsWith("/admin");
+  const isAdminLogin = pathname === "/admin/login";
+
+  if (isAdmin) {
+    return (
+      <div className="admin-shell">
+        {!isAdminLogin && <AdminNav />}
+
+        <main className="admin-page-content">
+          {children}
+        </main>
+      </div>
+    );
+  }
 
   return (
     <LanguageProvider>
       <ThemeProvider>
         <CartProvider>
-          {isAdmin ? <AdminNav /> : <SiteNav />}
+          <SiteNav />
 
-          <div className={isAdmin ? "admin-page-content" : "page-content"}>
+          <div className="page-content">
             {children}
           </div>
 
-          {!isAdmin && <SiteFooter />}
+          <SiteFooter />
         </CartProvider>
       </ThemeProvider>
     </LanguageProvider>
