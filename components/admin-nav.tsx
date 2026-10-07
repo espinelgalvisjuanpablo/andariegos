@@ -17,6 +17,16 @@ const links = [
 export function AdminNav() {
   const pathname = usePathname();
   const router = useRouter();
+  const [demo, setDemo] = useState(false);
+
+  useEffect(() => { setDemo(localStorage.getItem("andariegos-demo") === "1"); }, []);
+
+  function toggleDemo() {
+    const next = !demo;
+    setDemo(next);
+    if (next) localStorage.setItem("andariegos-demo","1"); else localStorage.removeItem("andariegos-demo");
+    router.push(next ? "/admin?demo=1" : "/admin");
+  }
 
   async function handleLogout() {
     const supabase = createClient();
@@ -66,7 +76,7 @@ export function AdminNav() {
           })}
         </nav>
 
-        <div className="admin-nav-actions">
+        <div className="admin-nav-actions">{demo && <span className="admin-demo-pill">MODO DEMO · PRUEBA</span>}<button type="button" className="admin-demo-toggle" onClick={toggleDemo}>{demo ? "SALIR DEL MODO DEMO" : "MODO DEMO"}</button>
           <Link href="/" className="admin-nav-public">
             VER WEB ↗
           </Link>
