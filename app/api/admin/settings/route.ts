@@ -4,7 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { createClient as sessionClient } from "@/lib/supabase/server";
 
 const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!,process.env.SUPABASE_SECRET_KEY!);
-const keys=["delivery","whatsapp","reservations","page_content"];
+const keys=["restaurant","delivery","whatsapp","reservations","page_content"];
 async function auth(){const s=await sessionClient();const {data:{user}}=await s.auth.getUser();return user}
 async function readSettings(){const {data,error}=await db.from("site_settings").select("key,value_json").in("key",keys);if(error)throw error;return Object.fromEntries((data||[]).map(x=>[x.key,x.value_json]));}
 export async function GET(){
