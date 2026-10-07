@@ -16,10 +16,10 @@ function endLabel(v:string|null){return v?new Intl.DateTimeFormat("es-CO",{timeZ
 function description(s:RestaurantStatus){if(s.reason==="temporary_open")return s.closureMessage||"Apertura excepcional activa.";if(s.reason==="temporary_closed"||s.reason==="special_closure")return s.closureMessage||s.closureReason||"Cierre excepcional.";return s.openingTime?"Fuera del horario de servicio.":"Hoy no tenemos servicio."}
 
 export default function AdminPage(){
- const [settings,setSettings]=useState<RestaurantSettings|null>(null),[status,setStatus]=useState<RestaurantStatus|null>(null),[loading,setLoading]=useState(true),[error,setError]=useState(""),[modal,setModal]=useState<"open"|"close"|null>(null),[message,setMessage]=useState(""),[reason,setReason]=useState<Reason>("temporary"),[startsAt,setStartsAt]=useState(defaultStart()),[endsAt,setEndsAt]=useState(defaultEnd()),[saving,setSaving]=useState(false);
+ const [summary,setSummary]=useState<any>(null),[settings,setSettings]=useState<RestaurantSettings|null>(null),[status,setStatus]=useState<RestaurantStatus|null>(null),[loading,setLoading]=useState(true),[error,setError]=useState(""),[modal,setModal]=useState<"open"|"close"|null>(null),[message,setMessage]=useState(""),[reason,setReason]=useState<Reason>("temporary"),[startsAt,setStartsAt]=useState(defaultStart()),[endsAt,setEndsAt]=useState(defaultEnd()),[saving,setSaving]=useState(false);
 
  const load=useCallback(async()=>{try{setError("");const r=await getRestaurantSettings();if(!r)throw new Error("No existe la configuración del restaurante.");setSettings(r);setStatus(getRestaurantStatus(r))}catch(e){console.error("Error loading restaurant:",e);setError("No fue posible cargar el estado del restaurante.")}finally{setLoading(false)}},[]);
- useEffect(()=>{load();const i=window.setInterval(load,60000);return()=>window.clearInterval(i)},[load]);
+ useEffect(()=>{load();fetch("/api/admin/summary").then(r=>r.json()).then(d=>setSummary(d));const i=window.setInterval(load,60000);return()=>window.clearInterval(i)},[load]);
  useEffect(()=>{if(!modal)return;const previous=document.body.style.overflow;document.body.style.overflow="hidden";const onKey=(e:KeyboardEvent)=>{if(e.key==="Escape"&&!saving)setModal(null)};window.addEventListener("keydown",onKey);return()=>{document.body.style.overflow=previous;window.removeEventListener("keydown",onKey)}},[modal,saving]);
 
  function openModal(type:"open"|"close"){setModal(type);setMessage("");setReason("temporary");setStartsAt(defaultStart());setEndsAt(defaultEnd());setError("")}
