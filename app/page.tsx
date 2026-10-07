@@ -2,26 +2,29 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/components/language-provider";
+import { useEffect,useState } from "react";
 
 const Doodle=({children,className=""}:{children:string;className?:string})=><span className={`ingredient-doodle ${className}`} aria-hidden="true">{children}</span>;
 
 export default function Home(){
-  const {lang}=useLanguage(); const en=lang==="EN";
+  const {lang}=useLanguage(); const en=lang==="EN"; const [content,setContent]=useState<any>(null);
+  useEffect(()=>{fetch("/api/public/content").then(r=>r.json()).then(d=>setContent(d.content||null)).catch(()=>{})},[]);
+  const home=content?.home||{}; const highlights=content?.highlights||[];
   return <main>
     <section className="hero-home">
       <Doodle className="doodle-tomato">🍅</Doodle><Doodle className="doodle-carrot">🥕</Doodle><Doodle className="doodle-leaf">🍃</Doodle>
       <div className="hero-ornament hero-ornament-a"/><div className="hero-ornament hero-ornament-b"/>
       <div className="hero-copy">
         <p className="eyebrow">COCINA DE OTRO MUNDO</p><h1>Andariegos</h1>
-        <p className="hero-lead">{en?"Cuisines from other worlds, to your world.":"Cocinas de otros mundos a tu mundo."}</p>
-        <p className="hero-note">{en?"Author dishes, fresh ingredients and an invitation to sit down without rushing.":"Platos de autor, ingredientes frescos y una invitación a sentarte sin afán."}</p>
+        <p className="hero-lead">{en?(home.hero_en||"Cuisines from other worlds, to your world."):(home.hero_es||"Cocinas de otros mundos a tu mundo.")}</p>
+        <p className="hero-note">{en?(home.hero_note_en||"Author dishes, fresh ingredients and an invitation to sit down without rushing."):(home.hero_note_es||"Platos de autor, ingredientes frescos y una invitación a sentarte sin afán.")}</p>
         <div className="hero-actions"><Link className="button button-primary" href="/menu">{en?"VIEW MENU":"VER MENÚ"}</Link><Link className="button" href="/checkout">{en?"ORDER DELIVERY":"PEDIR A DOMICILIO"}</Link></div>
       </div><p className="hero-signature">ARTESANAL · ARTÍSTICO · ELEGANTE</p>
     </section>
 
     <section className="section featured-section">
       <div className="section-heading"><div><p className="eyebrow">{en?"NOW AT ANDARIEGOS":"AHORA EN ANDARIEGOS"}</p><h2>{en?"Featured":"Destacados"}</h2></div><p>{en?"A place to highlight what is happening, what is worth trying or simply what the kitchen wants to share today.":"Un espacio para destacar lo que está pasando, lo que vale la pena probar o simplemente lo que la cocina quiere compartir hoy."}</p></div>
-      <div className="featured-grid">
+      <div className="featured-grid">{highlights.slice(0,3).map((x:any,i:number)=><article className={`feature-card ${x.image_url?"feature-image":"feature-paper"}`} key={x.id||i}>{x.image_url?<Image src={x.image_url} alt={x.title_es||"Andariegos"} fill sizes="(max-width: 800px) 100vw, 33vw"/>:<><span>0{String(i+1)}</span><h3>{en?(x.title_en||x.title_es):(x.title_es||x.title_en)}</h3><p>{en?(x.description_en||x.description_es):(x.description_es||x.description_en)}</p></>}</article>)}</div><div className="featured-grid">
         <article className="feature-card feature-dark"><Doodle>🌿</Doodle><span>01</span><h3>{en?"A kitchen that travels":"Una cocina que viaja"}</h3><p>{en?"Colombia, Argentina, Peru and Simijaca meet at the same table.":"Colombia, Argentina, Perú y Simijaca se encuentran en una misma mesa."}</p><Link href="/menu">{en?"Explore the menu →":"Explorar el menú →"}</Link></article>
         <article className="feature-card feature-image">
           <Image src="/images/plato-premio.jpeg" alt="Plato de Andariegos" fill sizes="(max-width: 800px) 100vw, 33vw"/>
