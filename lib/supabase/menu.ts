@@ -18,26 +18,8 @@ export async function getCategories() {
 }
 
 export async function getProducts() {
-  const supabase = createClient();
-
-  const { data, error } = await supabase
-    .from("products")
-    .select(`
-      *,
-      categories (
-        id,
-        slug,
-        name_es,
-        name_en
-      )
-    `)
-    .neq("status", "hidden")
-    .order("sort_order", { ascending: true });
-
-  if (error) {
-    console.error("Error loading products:", error);
-    throw error;
-  }
-
-  return data ?? [];
+  const response = await fetch("/api/public/menu", { cache: "no-store" });
+  if (!response.ok) throw new Error("Error loading public menu");
+  const data = await response.json();
+  return data.products ?? [];
 }
