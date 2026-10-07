@@ -48,7 +48,7 @@ export default function AdminPage(){
    const payload={action:open?"open_exception":"close_exception",reason:open?undefined:reason,message:message.trim()||null,starts_at:new Date(startsAt).toISOString(),ends_at:new Date(endsAt).toISOString()};
    if(demo){
     const base=settings!;
-    const next={...base,temporary_override:{active:true,mode:open?"open":"closed",message:message.trim()||null,starts_at:payload.starts_at,ends_at:payload.ends_at},special_closure:{active:false,reason:null,message:null,starts_at:null,ends_at:null}};
+    const next={...base,temporary_override:{active:true,mode:(open ? "open" : "closed") as "open" | "closed",message:message.trim()||null,starts_at:payload.starts_at,ends_at:payload.ends_at},special_closure:{active:false,reason:null,message:null,starts_at:null,ends_at:null}};
     localStorage.setItem("andariegos-demo-restaurant",JSON.stringify(next));setSettings(next);setStatus(getRestaurantStatus(next));setModal(null);return;
    }
    const r=await fetch("/api/admin/restaurant-status",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
