@@ -96,12 +96,16 @@ export async function POST(request: Request) {
       }) => ({
         order_id: order.id,
         product_id: item.product_id,
-        product_name_es: item.product_name_es,
-        product_name_en: item.product_name_en,
-        unit_price_cop: item.unit_price_cop,
+        product_name_es:
+          item.product_name_es,
+        product_name_en:
+          item.product_name_en,
+        unit_price_cop:
+          item.unit_price_cop,
         quantity: item.quantity,
         line_total_cop:
-          item.unit_price_cop * item.quantity,
+          item.unit_price_cop *
+          item.quantity,
       })
     );
 
