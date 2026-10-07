@@ -19,9 +19,9 @@ type PaymentMethod = {
 type DeliveryType = "delivery" | "pickup";
 type ScheduleType = "now" | "scheduled";
 
-const DELIVERY_FEE = 5000;
-const DELIVERY_RADIUS_KM = 5;
-const WHATSAPP_NUMBER = "573156771482";
+const DEFAULT_DELIVERY_FEE = 5000;
+const DEFAULT_DELIVERY_RADIUS_KM = 5;
+const DEFAULT_WHATSAPP_NUMBER = "573156771482";
 
 export default function CheckoutPage() {
   const {
@@ -65,6 +65,10 @@ export default function CheckoutPage() {
   const [error, setError] = useState("");
 
   const [sending, setSending] = useState(false);
+
+  const [deliveryFeeSetting, setDeliveryFeeSetting] = useState(DEFAULT_DELIVERY_FEE);
+  const [deliveryRadiusSetting, setDeliveryRadiusSetting] = useState(DEFAULT_DELIVERY_RADIUS_KM);
+  const [whatsappNumber, setWhatsappNumber] = useState(DEFAULT_WHATSAPP_NUMBER);
 
   const [submitted, setSubmitted] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
@@ -112,6 +116,19 @@ export default function CheckoutPage() {
     loadPaymentMethods();
   }, []);
 
+  useEffect(() => {
+    fetch("/api/public/settings")
+      .then((r) => r.json())
+      .then((data) => {
+        const delivery = data.settings?.delivery || {};
+        const whatsapp = data.settings?.whatsapp || {};
+        setDeliveryFeeSetting(Number(delivery.fee_cop ?? DEFAULT_DELIVERY_FEE));
+        setDeliveryRadiusSetting(Number(delivery.radius_km ?? DEFAULT_DELIVERY_RADIUS_KM));
+        setWhatsappNumber(String(whatsapp.phone || DEFAULT_WHATSAPP_NUMBER).replace(/\\D/g, ""));
+      })
+      .catch(() => {});
+  }, []);
+
   const selectedPaymentMethod = useMemo(() => {
     return (
       paymentMethods.find(
@@ -121,7 +138,7 @@ export default function CheckoutPage() {
   }, [payment, paymentMethods]);
 
   const deliveryFee =
-    fulfillment === "delivery" ? DELIVERY_FEE : 0;
+    fulfillment === "delivery" ? deliveryFeeSetting : 0;
 
   const finalTotal = total + deliveryFee;
 
@@ -406,7 +423,7 @@ export default function CheckoutPage() {
         );
 
       const whatsappUrl =
-        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+        `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
           whatsappMessage
         )}`;
 
@@ -1072,8 +1089,8 @@ export default function CheckoutPage() {
               <span>
                 {en
                   ? `Own delivery service · provisional fee ${formatCOP(
-                      DELIVERY_FEE
-                    )} · radius ${DELIVERY_RADIUS_KM} km.`
+                      deliveryFeeSetting
+                    )} · radius ${deliveryRadiusSetting} km.`
                   : `Servicio propio · tarifa provisional ${formatCOP(
                       DELIVERY_FEE
                     )} · radio de ${DELIVERY_RADIUS_KM} km.`}
