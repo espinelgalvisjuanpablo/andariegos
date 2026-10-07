@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { createClient } from "@/lib/supabase/client";
+
 
 const links = [
   { href: "/admin", label: "INICIO" },
