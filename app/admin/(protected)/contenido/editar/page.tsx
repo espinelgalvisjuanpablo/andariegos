@@ -1,0 +1,9 @@
+"use client";
+
+import { useState } from "react";
+
+export default function EditarContenido(){
+ const [title,setTitle]=useState(""); const [text,setText]=useState(""); const [status,setStatus]=useState("draft"); const [when,setWhen]=useState(""); const [saved,setSaved]=useState(false);
+ async function save(){const current=await fetch("/api/admin/content").then(r=>r.json());const list=current.content?.highlights||[];list.push({id:crypto.randomUUID(),title_es:title,title_en:title,description_es:text,description_en:text,image_url:"",status,publish_at:when||null});const r=await fetch("/api/admin/content",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({highlights:list})});if(r.ok){setSaved(true);setTitle("");setText("");setWhen("")}}
+ return <main className="admin-page"><section className="admin-head"><p className="eyebrow">MARCA</p><h1>Nuevo destacado</h1><p>Crea una pieza, déjala en borrador o programa su publicación.</p></section><section className="admin-config-card"><div className="admin-form-grid"><label>Título<input value={title} onChange={e=>setTitle(e.target.value)} placeholder="Ej. Ven a conocer Simijaca"/></label><label>Texto<textarea value={text} onChange={e=>setText(e.target.value)} placeholder="Una historia breve que invite a conocer Andariegos."/></label><label>Estado<select value={status} onChange={e=>setStatus(e.target.value)}><option value="draft">Borrador</option><option value="published">Publicar ahora</option><option value="scheduled">Programar</option></select></label>{status==="scheduled"&&<label>Publicar el<input type="datetime-local" value={when} onChange={e=>setWhen(e.target.value)}/></label>}</div><button className="button button-primary" onClick={save}>GUARDAR</button>{saved&&<p className="admin-note">Guardado correctamente.</p>}</section></main>;
+}
