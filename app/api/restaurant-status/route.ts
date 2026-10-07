@@ -35,7 +35,7 @@ export async function GET(){
         openingTime:status.openingTime,
         closingTime:status.closingTime,
         overrideEndsAt:status.overrideEndsAt,
-        message:status.closureMessage
+        message:status.closureMessage||(!status.isOpen?"Actualmente estamos cerrados. Agradecemos tu comprensión.":null)
       }
     },{
       headers:{"Cache-Control":"no-store"}
