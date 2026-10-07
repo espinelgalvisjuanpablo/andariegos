@@ -65,6 +65,14 @@ export default function MenuPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [restaurantStatus, setRestaurantStatus] = useState<{
+    isOpen: boolean;
+    reason: string;
+    openingTime: string | null;
+    closingTime: string | null;
+    overrideEndsAt: string | null;
+    message: string | null;
+  } | null>(null);
 
   const { cart, add, remove, count } = useCart();
   const { lang } = useLanguage();
@@ -80,6 +88,29 @@ export default function MenuPage() {
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
+  }, []);
+
+  useEffect(() => {
+    async function loadRestaurantStatus() {
+      try {
+        const response = await fetch("/api/restaurant-status", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) throw new Error("Status request failed");
+
+        const data = await response.json();
+        setRestaurantStatus(data.status ?? null);
+      } catch (err) {
+        console.error("Error loading restaurant status:", err);
+      }
+    }
+
+    loadRestaurantStatus();
+
+    const interval = window.setInterval(loadRestaurantStatus, 60000);
+
+    return () => window.clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -134,6 +165,14 @@ export default function MenuPage() {
     });
   }, [query, products]);
 
+  const restaurantClosed = restaurantStatus?.isOpen === false;
+  const exceptionalOpen = restaurantStatus?.reason === "temporary_open";
+  const exceptionalClosed =
+    restaurantStatus?.reason === "temporary_closed" ||
+    restaurantStatus?.reason === "special_closure";
+
+  const restaurantMessage = restaurantStatus?.message?.trim();
+
   return (
     <main className="menu-page">
       <section className="menu-intro">
@@ -153,6 +192,60 @@ export default function MenuPage() {
             ? "Search by dish or ingredient. Add what you like and keep moving."
             : "Busca por plato o ingrediente. Agrega lo que te guste y sigue."}
         </p>
+
+        {restaurantStatus && (restaurantClosed || exceptionalOpen) && (
+          <aside
+            className={`restaurant-menu-notice ${restaurantClosed ? "is-closed" : "is-exceptional"}`}
+            role="status"
+          >
+            <div>
+              <span>
+                {restaurantClosed
+                  ? en
+                    ? exceptionalClosed
+                      ? "TEMPORARILY CLOSED"
+                      : "CLOSED NOW"
+                    : "CERRADO TEMPORALMENTE"
+                  : en
+                    ? "OPEN EXCEPTIONALLY"
+                    : "ABIERTO EXCEPCIONALMENTE"}
+              </span>
+
+              <strong>
+                {restaurantMessage ||
+                  (restaurantClosed
+                    ? en
+                      ? "Orders are not available right now."
+                      : "Los pedidos no están disponibles en este momento."
+                    : en
+                      ? "We are open outside our usual schedule today."
+                      : "Hoy estamos abiertos fuera de nuestro horario habitual.")}
+              </strong>
+
+              {restaurantClosed &&
+                restaurantStatus.openingTime &&
+                restaurantStatus.closingTime && (
+                  <small>
+                    {en ? "Regular hours:" : "Horario habitual:"}{" "}
+                    {restaurantStatus.openingTime} —{" "}
+                    {restaurantStatus.closingTime}
+                  </small>
+                )}
+
+              {restaurantStatus.overrideEndsAt && (
+                <small>
+                  {en ? "Until:" : "Hasta:"}{" "}
+                  {new Intl.DateTimeFormat(en ? "en-US" : "es-CO", {
+                    timeZone: "America/Bogota",
+                    hour: "numeric",
+                    minute: "2-digit",
+                    hour12: true,
+                  }).format(new Date(restaurantStatus.overrideEndsAt))}
+                </small>
+              )}
+            </div>
+          </aside>
+        )}
 
         <div className="menu-tools">
           <label className="search-field">
@@ -247,7 +340,7 @@ export default function MenuPage() {
                 {items.map((product) => {
                   const isSoon = product.status === "soon";
                   const isSoldOut = product.status === "soldout";
-                  const unavailable = isSoon || isSoldOut;
+                  const unavailable = isSoon || isSoldOut || restaurantClosed;
 
                   const name = en
                     ? product.name_en
@@ -312,13 +405,17 @@ export default function MenuPage() {
                             type="button"
                             disabled
                           >
-                            {isSoon
+                            {restaurantClosed
                               ? en
-                                ? "SOON"
-                                : "PRÓXIMAMENTE"
-                              : en
-                                ? "SOLD OUT"
-                                : "AGOTADO"}
+                                ? "CLOSED"
+                                : "CERRADO"
+                              : isSoon
+                                ? en
+                                  ? "SOON"
+                                  : "PRÓXIMAMENTE"
+                                : en
+                                  ? "SOLD OUT"
+                                  : "AGOTADO"}
                           </button>
                         ) : cart[product.id] ? (
                           <>
