@@ -15,7 +15,11 @@ export async function POST(request:Request){
   const supabase=await createClient();
   const {data:{user}}=await supabase.auth.getUser();
   if(!user)return NextResponse.json({error:"No autorizado."},{status:401});
+  const role=String(user.app_metadata?.role||user.user_metadata?.role||"admin").toLowerCase();
+  if(!["owner","admin"].includes(role))return NextResponse.json({error:"No tienes permisos para cambiar el estado del restaurante."},{status:403});
+  const demo=(await (await import("next/headers")).cookies()).get("andariegos_demo")?.value==="1";
   const body=await request.json() as Payload;
+  if(demo)return NextResponse.json({success:true,demo:true,action:body.action});
   if(body.action!=="open_exception"&&body.action!=="close_exception"&&body.action!=="clear_override")return NextResponse.json({error:"Acción no válida."},{status:400});
   const {data:setting,error:readError}=await admin.from("site_settings").select("value_json").eq("key","restaurant").maybeSingle();
   if(readError)return NextResponse.json({error:"No fue posible leer la configuración del restaurante."},{status:500});
