@@ -34,7 +34,8 @@ export async function GET(){
         reason:status.reason,
         openingTime:status.openingTime,
         closingTime:status.closingTime,
-        overrideEndsAt:status.overrideEndsAt
+        overrideEndsAt:status.overrideEndsAt,
+        message:status.closureMessage
       }
     },{
       headers:{"Cache-Control":"no-store"}
