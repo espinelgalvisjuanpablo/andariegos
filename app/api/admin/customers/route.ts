@@ -1,0 +1,22 @@
+import { NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
+import { createClient as sessionClient } from "@/lib/supabase/server";
+
+const db=createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!,process.env.SUPABASE_SECRET_KEY!);
+
+export async function GET(){
+ const session=await sessionClient(); const {data:{user}}=await session.auth.getUser();
+ if(!user)return NextResponse.json({error:"No autorizado."},{status:401});
+ const {data,error}=await db.from("orders").select("id,order_number,customer_name,customer_phone,total_cop,created_at,order_items(product_name_es,quantity)").order("created_at",{ascending:false}).limit(1000);
+ if(error)return NextResponse.json({error:"No fue posible cargar clientes."},{status:500});
+ const map=new Map<string,any>();
+ for(const o of data||[]){
+  const key=o.customer_phone||o.customer_name||o.id;
+  const c=map.get(key)||{key,name:o.customer_name||"Cliente anonimizado",phone:o.customer_phone||"",orders:0,total:0,last:o.created_at,items:{}};
+  c.orders++; c.total+=Number(o.total_cop||0); if(new Date(o.created_at)>new Date(c.last))c.last=o.created_at;
+  for(const item of o.order_items||[])c.items[item.product_name_es]=(c.items[item.product_name_es]||0)+Number(item.quantity||0);
+  map.set(key,c);
+ }
+ const customers=[...map.values()].map(c=>({...c,topItem:Object.entries(c.items).sort((a:any,b:any)=>b[1]-a[1])[0]?.[0]||null}));
+ return NextResponse.json({customers});
+}
