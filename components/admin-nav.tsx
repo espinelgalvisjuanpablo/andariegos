@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 
 const links = [
   { href: "/admin", label: "INICIO" },
@@ -19,8 +20,9 @@ export function AdminNav() {
   const pathname = usePathname();
   const router = useRouter();
   const [demo, setDemo] = useState(false);
+  const [role, setRole] = useState("admin");
 
-  useEffect(() => { setDemo(localStorage.getItem("andariegos-demo") === "1"); }, []);
+  useEffect(() => { setDemo(localStorage.getItem("andariegos-demo") === "1"); createClient().auth.getUser().then(({data}) => setRole(String(data.user?.app_metadata?.role || data.user?.user_metadata?.role || "admin").toLowerCase())); }, []);
 
   function toggleDemo() {
     const next = !demo;
@@ -58,7 +60,7 @@ export function AdminNav() {
           className="admin-nav-links"
           aria-label="Navegación administrativa"
         >
-          {links.map((link) => {
+          {links.filter((link) => role !== "employee" || ["/admin","/admin/menu","/admin/contenido"].includes(link.href)).map((link) => {
             const isCurrent =
               link.href === "/admin"
                 ? pathname === "/admin"
