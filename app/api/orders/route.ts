@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { getRestaurantStatus } from "@/lib/supabase/restaurant-status";
+import type { RestaurantSettings } from "@/lib/supabase/restaurant";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseKey = process.env.SUPABASE_SECRET_KEY!;
@@ -12,6 +14,14 @@ const supabase = createClient(
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+
+    const { data: restaurantSetting } = await supabase.from("site_settings").select("value_json").eq("key","restaurant").maybeSingle();
+    if (restaurantSetting) {
+      const restaurantStatus = getRestaurantStatus(restaurantSetting.value_json as RestaurantSettings);
+      if (!restaurantStatus.isOpen) {
+        return NextResponse.json({ error: "Andariegos está cerrado en este momento. Intenta nuevamente durante el horario de servicio." }, { status: 409 });
+      }
+    }
 
     const {
       customer_name,
