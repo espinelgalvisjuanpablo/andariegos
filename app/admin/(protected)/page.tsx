@@ -61,7 +61,7 @@ export default function AdminPage(){
   try{
    if(demo){
     const base=settings!;
-    const next={...base,temporary_override:{active:false,mode:"open",message:null,starts_at:null,ends_at:null}};
+    const next={...base,temporary_override:{active:false,mode: "open" as const,message:null,starts_at:null,ends_at:null}};
     localStorage.setItem("andariegos-demo-restaurant",JSON.stringify(next));setSettings(next);setStatus(getRestaurantStatus(next));return;
    }
    const r=await fetch("/api/admin/restaurant-status",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"clear_override"})});
