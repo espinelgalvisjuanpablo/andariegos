@@ -27,7 +27,7 @@ export function AdminNav() {
   function toggleDemo() {
     const next = !demo;
     setDemo(next);
-    if (next) localStorage.setItem("andariegos-demo","1"); else localStorage.removeItem("andariegos-demo");
+    if (next) { localStorage.setItem("andariegos-demo","1"); document.cookie="andariegos_demo=1; path=/; SameSite=Lax"; } else { localStorage.removeItem("andariegos-demo"); document.cookie="andariegos_demo=; Max-Age=0; path=/; SameSite=Lax"; }
     router.push(next ? "/admin?demo=1" : "/admin");
   }
 
