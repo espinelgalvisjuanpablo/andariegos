@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
 import { createClient as sessionClient } from "@/lib/supabase/server";
 
@@ -18,6 +19,8 @@ export async function POST(request:Request){
  const role=((u.app_metadata?.role||u.user_metadata?.role||"admin") as string).toLowerCase();
  if(!["owner","admin","employee"].includes(role))return NextResponse.json({error:"No autorizado."},{status:403});
  const body=await request.json();
+ const demo=(await cookies()).get("andariegos_demo")?.value==="1";
+ if(demo)return NextResponse.json({success:true,demo:true,content:body});
  const {error}=await db.from("site_settings").upsert({key:"page_content",value_json:body},{onConflict:"key"});
  if(error)return NextResponse.json({error:"No fue posible guardar el contenido."},{status:500});
  return NextResponse.json({success:true});
