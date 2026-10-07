@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { createClient as createSupabaseAdmin } from "@supabase/supabase-js";
 
@@ -17,7 +18,7 @@ export async function POST(request:Request){
   if(!user)return NextResponse.json({error:"No autorizado."},{status:401});
   const role=String(user.app_metadata?.role||user.user_metadata?.role||"admin").toLowerCase();
   if(!["owner","admin"].includes(role))return NextResponse.json({error:"No tienes permisos para cambiar el estado del restaurante."},{status:403});
-  const demo=(await (await import("next/headers")).cookies()).get("andariegos_demo")?.value==="1";
+  const demo=(await cookies()).get("andariegos_demo")?.value==="1";
   const body=await request.json() as Payload;
   if(demo)return NextResponse.json({success:true,demo:true,action:body.action});
   if(body.action!=="open_exception"&&body.action!=="close_exception"&&body.action!=="clear_override")return NextResponse.json({error:"Acción no válida."},{status:400});
